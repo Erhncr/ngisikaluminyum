@@ -2,93 +2,17 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useState, useRef } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
+import { useState, useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 
 export default function Home() {
-  const [currentImage, setCurrentImage] = useState(0);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const [currentImage, setCurrentImage] = useState(0)
+  const [isVisible, setIsVisible] = useState(false)
   const { ref: statsRef, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true
-  });
-  const images = [
-    "/1b000a8b-3405-4abc-ad3b-e7baf9a427aa.png",
-    "/1b000a8b-3405-4aaaabc-ad3b-e7baf9a427aa.png",
-    "/illustrations/sineklik.png"
-  ];
-
-  const stats = [
-    { id: 'count1', value: 20, label: 'Yıllık Deneyim', suffix: '+' },
-    { id: 'count2', value: 1000, label: 'Tamamlanan Proje', suffix: '+' },
-    { id: 'count3', value: 50, label: 'Uzman Personel', suffix: '+' },
-    { id: 'count4', value: 100, label: 'Müşteri Memnuniyeti', suffix: '%' }
-  ];
-
-  useEffect(() => {
-    function animateValue(element: HTMLElement | null, start: number, end: number, duration: number) {
-      if (!element) return;
-      
-      let startTimestamp: number | null = null;
-      const step = (timestamp: number) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        element.innerHTML = Math.floor(progress * (end - start) + start).toString();
-        if (progress < 1) {
-          window.requestAnimationFrame(step);
-        }
-      };
-      window.requestAnimationFrame(step);
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateValue(document.getElementById('count1'), 0, 20, 2000);
-          animateValue(document.getElementById('count2'), 0, 1000, 2000);
-          animateValue(document.getElementById('count3'), 0, 50, 2000);
-          animateValue(document.getElementById('count4'), 0, 100, 2000);
-          observer.unobserve(entry.target);
-        }
-      });
-    });
-
-    const gridElement = document.querySelector('.grid');
-    if (gridElement) {
-      observer.observe(gridElement);
-    }
-
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 10000);
-
-    return () => {
-      observer.disconnect();
-      clearInterval(interval);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
-        setIsMobileMenuOpen(false)
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [])
+  })
 
   useEffect(() => {
     setIsVisible(true)
@@ -129,142 +53,6 @@ export default function Home() {
       transition={{ duration: 0.5 }}
       className="min-h-screen"
     >
-      {/* Header */}
-      <header className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/95 backdrop-blur-sm shadow-md" : "bg-transparent"
-      }`}>
-        <div className="max-w-[1400px] h-[80px] mx-auto px-4 md:px-8">
-          <div className="flex items-center justify-between h-full">
-            {/* Logo */}
-            <Link href="/" className="relative w-[120px] md:w-[140px] h-[48px] md:h-[56px] group" aria-label="NG IŞIK Ana Sayfa">
-              <Image
-                src="/ngisiklogo.png"
-                alt="NG IŞIK Logo"
-                fill
-                className="object-contain transition-opacity duration-300 group-hover:opacity-0"
-                priority
-              />
-              <Image
-                src="/nglogo.png"
-                alt="NG IŞIK Logo Hover"
-                fill
-                className="object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                priority
-              />
-            </Link>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8 lg:space-x-12" aria-label="Ana Menü">
-              <Link 
-                href="/kurumsal" 
-                className="text-sm font-medium text-gray-900 hover:text-[#F7374F] transition-colors duration-300"
-                aria-current={window.location.pathname === '/kurumsal' ? 'page' : undefined}
-              >
-                Kurumsal
-              </Link>
-              <Link 
-                href="/hizmetler" 
-                className="text-sm font-medium text-gray-900 hover:text-[#F7374F] transition-colors duration-300"
-                aria-current={window.location.pathname === '/hizmetler' ? 'page' : undefined}
-              >
-                Hizmetler
-              </Link>
-              <Link 
-                href="/urunler" 
-                className="text-sm font-medium text-gray-900 hover:text-[#F7374F] transition-colors duration-300"
-                aria-current={window.location.pathname === '/urunler' ? 'page' : undefined}
-              >
-                Ürünler
-              </Link>
-              <Link 
-                href="/iletisim" 
-                className="text-sm font-medium text-gray-900 hover:text-[#F7374F] transition-colors duration-300"
-                aria-current={window.location.pathname === '/iletisim' ? 'page' : undefined}
-              >
-                İletişim
-              </Link>
-            </nav>
-
-            {/* CTA Button */}
-            <div className="hidden md:flex items-center">
-              <Link 
-                href="/iletisim" 
-                className="px-6 py-2.5 text-sm font-medium text-white bg-[#F7374F] rounded-md hover:bg-[#F7374F]/90 transition-all duration-300"
-                aria-label="İletişime Geç"
-              >
-                İletişime Geçin
-              </Link>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden relative z-50 p-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label={isMobileMenuOpen ? "Menüyü Kapat" : "Menüyü Aç"}
-              aria-expanded={isMobileMenuOpen}
-            >
-              <div className="w-6 h-0.5 bg-gray-700 mb-1.5 transition-transform duration-300" />
-              <div className="w-6 h-0.5 bg-gray-700 mb-1.5 transition-opacity duration-300" />
-              <div className="w-6 h-0.5 bg-gray-700 transition-transform duration-300" />
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              ref={mobileMenuRef}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden fixed inset-0 bg-white z-40 pt-20"
-            >
-              <div className="container mx-auto px-4">
-                <div className="flex flex-col space-y-6">
-                  <Link 
-                    href="/kurumsal" 
-                    className="text-2xl text-gray-700 hover:text-[#FB4141] transition-colors duration-300"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Kurumsal
-                  </Link>
-                  <Link 
-                    href="/hizmetler" 
-                    className="text-2xl text-gray-700 hover:text-[#FB4141] transition-colors duration-300"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Hizmetler
-                  </Link>
-                  <Link 
-                    href="/urunler" 
-                    className="text-2xl text-gray-700 hover:text-[#FB4141] transition-colors duration-300"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Ürünler
-                  </Link>
-                  <Link 
-                    href="/iletisim" 
-                    className="text-2xl text-gray-700 hover:text-[#FB4141] transition-colors duration-300"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    İletişim
-                  </Link>
-                  <Link
-                    href="/iletisim"
-                    className="bg-[#FB4141] text-white px-6 py-3 rounded-full text-center hover:bg-[#F7374F] transition-colors duration-300"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    İletişime Geç
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
-
       {/* Hero Section */}
       <section className="relative h-screen flex items-center">
         <div className="absolute inset-0 z-0">
@@ -315,348 +103,28 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <motion.section
-        ref={statsRef}
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-        className="py-20 bg-gray-50"
-      >
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Stat Cards with improved animations */}
+          <motion.div
+            ref={statsRef}
+            variants={containerVariants}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
             {stats.map((stat, index) => (
               <motion.div
-                key={stat.id}
+                key={index}
                 variants={itemVariants}
-                className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className="text-center"
               >
-                <div className="text-4xl font-bold text-[#FB4141] mb-4">
-                  {inView ? stat.value : "0"}
-                  {stat.suffix}
+                <div className="text-4xl font-bold text-[#FB4141] mb-2">
+                  {stat.value}{stat.suffix}
                 </div>
                 <div className="text-gray-600">{stat.label}</div>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Products Section */}
-      <section className="py-20 bg-black">
-        <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-          <div className="flex items-start flex-col mb-16">
-            <div className="inline-block px-4 py-2 bg-white/10 rounded-full text-sm font-medium text-white mb-6">
-              NEDEN BİZ
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-space-mono">
-              Modern Alüminyum Sistemleri<br />
-              İçin Doğru Adres
-            </h2>
-            <p className="text-white/80 max-w-xl font-space-mono-regular">
-              Kaliteli ürünler ve profesyonel hizmet anlayışımızla, yaşam alanlarınızı modern ve estetik çözümlerle yeniliyoruz.
-            </p>
-          </div>
-
-          {/* Scrollable Products */}
-          <div className="relative">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {/* Product Card 1 */}
-              <div className="bg-black border border-white/10 rounded-3xl p-8 group hover:bg-[#FB4141] transition-all duration-500">
-                <div className="relative h-[300px] rounded-2xl overflow-hidden mb-6">
-                  <Image
-                    src="/Whatsapp Image 2025-03-24 at 01.41.00.jpeg"
-                    alt="Alüminyum Pencere Sistemleri"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 right-4 w-10 h-10 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white transform rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </div>
-                </div>
-                <h3 className="text-2xl font-semibold mb-4 font-space-mono text-white group-hover:text-white">Alüminyum Pencere Sistemleri</h3>
-                <p className="text-white/60 mb-6 font-space-mono-regular group-hover:text-white/90">
-                  Modern mimariye uygun, enerji tasarruflu ve dayanıklı alüminyum pencere sistemleri.
-                </p>
-                <Link
-                  href="/urunler/aluminyum-pencere-sistemleri"
-                  className="inline-flex items-center text-white font-medium group-hover:text-white transition-colors"
-                >
-                  Detaylı Bilgi
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-              </div>
-
-              {/* Product Card 2 */}
-              <div className="bg-black border border-white/10 rounded-3xl p-8 group hover:bg-[#FB4141] transition-all duration-500">
-                <div className="relative h-[300px] rounded-2xl overflow-hidden mb-6">
-                  <Image
-                    src="/Whatsapp Image 2025-03-24 at 01.41.01.jpeg"
-                    alt="Alüminyum Kapı Sistemleri"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 right-4 w-10 h-10 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white transform rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </div>
-                </div>
-                <h3 className="text-2xl font-semibold mb-4 font-space-mono text-white group-hover:text-white">Alüminyum Kapı Sistemleri</h3>
-                <p className="text-white/60 mb-6 font-space-mono-regular group-hover:text-white/90">
-                  Şık ve güvenli alüminyum kapı sistemleri ile mekanlarınızı güçlendirin.
-                </p>
-                <Link
-                  href="/urunler/aluminyum-kapi-sistemleri"
-                  className="inline-flex items-center text-white font-medium group-hover:text-white transition-colors"
-                >
-                  Detaylı Bilgi
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-              </div>
-
-              {/* Product Card 3 */}
-              <div className="bg-black border border-white/10 rounded-3xl p-8 group hover:bg-[#FB4141] transition-all duration-500">
-                <div className="relative h-[300px] rounded-2xl overflow-hidden mb-6">
-                  <Image
-                    src="/Whatsapp Image 2025-03-24 at 01.41.02.jpeg"
-                    alt="Cephe Sistemleri"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 right-4 w-10 h-10 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white transform rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </div>
-                </div>
-                <h3 className="text-2xl font-semibold mb-4 font-space-mono text-white group-hover:text-white">Cephe Sistemleri</h3>
-                <p className="text-white/60 mb-6 font-space-mono-regular group-hover:text-white/90">
-                  Modern mimariye uygun cephe sistemleri ile binalarınızı yenileyin.
-                </p>
-                <Link
-                  href="/urunler/cephe-sistemleri"
-                  className="inline-flex items-center text-white font-medium group-hover:text-white transition-colors"
-                >
-                  Detaylı Bilgi
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-              </div>
-
-              {/* Product Card 4 */}
-              <div className="bg-black border border-white/10 rounded-3xl p-8 group hover:bg-[#FB4141] transition-all duration-500">
-                <div className="relative h-[300px] rounded-2xl overflow-hidden mb-6">
-                  <Image
-                    src="/illustrations/sineklik.png"
-                    alt="Sineklik Sistemleri"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 right-4 w-10 h-10 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white transform rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </div>
-                </div>
-                <h3 className="text-2xl font-semibold mb-4 font-space-mono text-white group-hover:text-white">Sineklik Sistemleri</h3>
-                <p className="text-white/60 mb-6 font-space-mono-regular group-hover:text-white/90">
-                  Pratik ve estetik sineklik sistemleri ile yaşam alanlarınızı koruyun.
-                </p>
-                <Link
-                  href="/urunler/sineklik-sistemleri"
-                  className="inline-flex items-center text-white font-medium group-hover:text-white transition-colors"
-                >
-                  Detaylı Bilgi
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-          <div className="flex items-start flex-col mb-16">
-            <div className="inline-block px-4 py-2 bg-gray-100 rounded-full text-sm font-medium text-gray-600 mb-6">
-              HİZMETLERİMİZ
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-space-mono">
-              Profesyonel Ekip ve<br />
-              Modern Ekipmanlar
-            </h2>
-            <p className="text-gray-600 max-w-xl font-space-mono-regular">
-              Profesyonel ekibimiz ve modern ekipmanlarımızla kaliteli hizmet sunuyoruz.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Service Card 1 */}
-            <div className="bg-gray-50 rounded-2xl p-8 group hover:bg-[#FB4141] transition-all duration-500">
-              <div className="w-12 h-12 bg-[#FB4141] rounded-lg flex items-center justify-center mb-6 group-hover:bg-white">
-                <svg className="w-6 h-6 text-white group-hover:text-[#FB4141] transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-4 font-space-mono text-gray-900 group-hover:text-white">Keşif ve Ölçüm</h3>
-              <p className="text-gray-600 font-space-mono-regular group-hover:text-white/90">
-                Uzman ekibimiz keşif için sizi ziyaret eder ve projeniz için en uygun çözümü sunar.
-              </p>
-            </div>
-
-            {/* Service Card 2 */}
-            <div className="bg-gray-50 rounded-2xl p-8 group hover:bg-[#FB4141] transition-all duration-500">
-              <div className="w-12 h-12 bg-[#FB4141] rounded-lg flex items-center justify-center mb-6 group-hover:bg-white">
-                <svg className="w-6 h-6 text-white group-hover:text-[#FB4141] transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-4 font-space-mono text-gray-900 group-hover:text-white">Montaj</h3>
-              <p className="text-gray-600 font-space-mono-regular group-hover:text-white/90">
-                Profesyonel ekibimizle hızlı ve kaliteli montaj hizmeti sunuyoruz.
-              </p>
-            </div>
-
-            {/* Service Card 3 */}
-            <div className="bg-gray-50 rounded-2xl p-8 group hover:bg-[#FB4141] transition-all duration-500">
-              <div className="w-12 h-12 bg-[#FB4141] rounded-lg flex items-center justify-center mb-6 group-hover:bg-white">
-                <svg className="w-6 h-6 text-white group-hover:text-[#FB4141] transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-4 font-space-mono text-gray-900 group-hover:text-white">Garanti</h3>
-              <p className="text-gray-600 font-space-mono-regular group-hover:text-white/90">
-                Tüm ürünlerimiz garantilidir ve teknik destek hizmeti sunuyoruz.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section className="py-20 bg-black">
-        <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="flex items-start flex-col mb-16">
-                <div className="inline-block px-4 py-2 bg-white/10 rounded-full text-sm font-medium text-white mb-6">
-                  HAKKIMIZDA
-                </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-space-mono">
-                  20 Yıllık Deneyim ve<br />
-                  Profesyonel Hizmet
-                </h2>
-                <p className="text-white/80 max-w-xl font-space-mono-regular mb-8">
-                  Modern mimariye uygun alüminyum sistemleri üretiyor ve montajını gerçekleştiriyoruz. Müşteri memnuniyeti ve kalite odaklı çalışma prensibiyle, yaşam alanlarınızı yeniliyoruz.
-                </p>
-                <Link
-                  href="/kurumsal"
-                  className="inline-block px-8 py-4 bg-[#FB4141] text-white rounded-lg hover:bg-white hover:text-[#FB4141] border-2 border-[#FB4141] transition-all duration-300"
-                >
-                  Detaylı Bilgi
-                </Link>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="relative h-[400px] rounded-2xl overflow-hidden">
-                <Image
-                  src="/WhatsApp Image 2025-03-24 at 01.41.02.jpeg"
-                  alt="Hakkımızda"
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-4 right-4 w-10 h-10 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-white transform rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </div>
-              </div>
-              <div className="relative h-[400px] rounded-2xl overflow-hidden">
-                <Image
-                  src="/WhatsApp Image 2025-03-24 at 01.41.02.jpeg"
-                  alt="Hakkımızda"
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-4 right-4 w-10 h-10 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-white transform rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-          <div className="flex items-start flex-col mb-16">
-            <div className="inline-block px-4 py-2 bg-gray-100 rounded-full text-sm font-medium text-gray-600 mb-6">
-              İLETİŞİM
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-space-mono">
-              Size Özel Çözümler<br />
-              İçin Bizimle İletişime Geçin
-            </h2>
-            <p className="text-gray-600 max-w-xl font-space-mono-regular">
-              Profesyonel ekibimiz size en uygun çözümü sunmak için hazır.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Contact Card 1 */}
-            <div className="bg-gray-50 rounded-2xl p-8 group hover:bg-[#FB4141] transition-all duration-500">
-              <div className="w-12 h-12 bg-[#FB4141] rounded-lg flex items-center justify-center mb-6 group-hover:bg-white">
-                <svg className="w-6 h-6 text-white group-hover:text-[#FB4141] transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-4 font-space-mono text-gray-900 group-hover:text-white">Telefon</h3>
-              <p className="text-gray-600 font-space-mono-regular group-hover:text-white/90">
-                +90 216 222 22 22
-              </p>
-            </div>
-
-            {/* Contact Card 2 */}
-            <div className="bg-gray-50 rounded-2xl p-8 group hover:bg-[#FB4141] transition-all duration-500">
-              <div className="w-12 h-12 bg-[#FB4141] rounded-lg flex items-center justify-center mb-6 group-hover:bg-white">
-                <svg className="w-6 h-6 text-white group-hover:text-[#FB4141] transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-4 font-space-mono text-gray-900 group-hover:text-white">E-posta</h3>
-              <p className="text-gray-600 font-space-mono-regular group-hover:text-white/90">
-                info@ngisik.com
-              </p>
-            </div>
-
-            {/* Contact Card 3 */}
-            <div className="bg-gray-50 rounded-2xl p-8 group hover:bg-[#FB4141] transition-all duration-500">
-              <div className="w-12 h-12 bg-[#FB4141] rounded-lg flex items-center justify-center mb-6 group-hover:bg-white">
-                <svg className="w-6 h-6 text-white group-hover:text-[#FB4141] transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-4 font-space-mono text-gray-900 group-hover:text-white">Adres</h3>
-              <p className="text-gray-600 font-space-mono-regular group-hover:text-white/90">
-                İstanbul, Türkiye
-              </p>
-            </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -727,25 +195,25 @@ export default function Home() {
             {/* Contact Info */}
             <div>
               <h4 className="text-lg font-semibold mb-6 font-space-mono">İletişim</h4>
-              <ul className="space-y-4">
-                <li className="flex items-center space-x-3 text-white/60 font-space-mono-regular">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                  <span>+90 216 222 22 22</span>
-                </li>
-                <li className="flex items-center space-x-3 text-white/60 font-space-mono-regular">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  <span>info@ngisik.com</span>
-                </li>
-                <li className="flex items-center space-x-3 text-white/60 font-space-mono-regular">
+              <ul className="space-y-4 text-white/60">
+                <li className="flex items-center space-x-3">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                   <span>İstanbul, Türkiye</span>
+                </li>
+                <li className="flex items-center space-x-3">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  <span>+90 (212) 123 45 67</span>
+                </li>
+                <li className="flex items-center space-x-3">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <span>info@ngisik.com</span>
                 </li>
               </ul>
             </div>
@@ -753,18 +221,18 @@ export default function Home() {
             {/* Newsletter */}
             <div>
               <h4 className="text-lg font-semibold mb-6 font-space-mono">Bülten</h4>
-              <p className="text-white/60 mb-6 font-space-mono-regular">
+              <p className="text-white/60 mb-4">
                 Yeni ürünler ve kampanyalardan haberdar olmak için bültenimize abone olun.
               </p>
               <form className="flex space-x-2">
                 <input
                   type="email"
                   placeholder="E-posta adresiniz"
-                  className="flex-1 px-4 py-2 bg-white/10 rounded-lg text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-[#FB4141] font-space-mono-regular"
+                  className="flex-1 px-4 py-2 rounded-lg bg-white/10 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-[#FB4141]"
                 />
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-[#FB4141] text-white rounded-lg hover:bg-white hover:text-[#FB4141] transition-colors duration-300 font-space-mono"
+                  className="px-4 py-2 bg-[#FB4141] text-white rounded-lg hover:bg-[#F7374F] transition-colors duration-300"
                 >
                   Abone Ol
                 </button>
@@ -773,48 +241,24 @@ export default function Home() {
           </div>
 
           {/* Copyright */}
-          <div className="mt-16 pt-8 border-t border-white/10">
-            <p className="text-center text-white/40 font-space-mono-regular">
-              © 2024 NG IŞIK. Tüm hakları saklıdır.
-            </p>
+          <div className="mt-12 pt-8 border-t border-white/10 text-center text-white/40">
+            <p>&copy; {new Date().getFullYear()} NG IŞIK. Tüm hakları saklıdır.</p>
           </div>
         </div>
       </footer>
-
-      {/* Add custom animations to tailwind.config.js */}
-      <style jsx global>{`
-        @keyframes progress {
-          to {
-            stroke-dashoffset: 0;
-          }
-        }
-        @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes slide-up {
-          from { transform: translateY(20px); opacity: 0; }
-          to { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes fade-in-up {
-          from { transform: translateY(20px); opacity: 0; }
-          to { transform: translateY(0); opacity: 1; }
-        }
-        .animate-fade-in {
-          animation: fade-in 0.5s ease-out forwards;
-        }
-        .animate-slide-up {
-          animation: slide-up 0.5s ease-out forwards;
-        }
-        .animate-slide-up-delayed {
-          animation: slide-up 0.5s ease-out 0.2s forwards;
-          opacity: 0;
-        }
-        .animate-fade-in-up {
-          animation: fade-in-up 0.5s ease-out 0.4s forwards;
-          opacity: 0;
-        }
-      `}</style>
     </motion.main>
   )
-} 
+}
+
+const images = [
+  "/Whatsapp Image 2025-03-24 at 01.41.00.jpeg",
+  "/Whatsapp Image 2025-03-24 at 01.41.01.jpeg",
+  "/Whatsapp Image 2025-03-24 at 01.41.02.jpeg"
+]
+
+const stats = [
+  { value: "25", label: "Yıllık Tecrübe", suffix: "+" },
+  { value: "1000", label: "Tamamlanan Proje", suffix: "+" },
+  { value: "50", label: "Uzman Personel", suffix: "+" },
+  { value: "98", label: "Müşteri Memnuniyeti", suffix: "%" }
+] 

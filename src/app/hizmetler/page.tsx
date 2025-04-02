@@ -1,166 +1,129 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+import { motion } from "framer-motion"
 
 export default function Services() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-        <div className="w-[1400px] h-[90px] mx-auto px-8">
-          <div className="flex items-center justify-between h-full">
-            {/* Logo */}
-            <Link href="/" className="relative w-[140px] h-[56px]">
-              <Image
-                src="/nglogo.png"
-                alt="NG IŞIK Logo"
-                fill
-                className="object-contain"
-                priority
-              />
-            </Link>
-
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-12">
-              <Link href="/kurumsal" className="text-sm font-medium tracking-wider text-gray-900 hover:text-[#F7374F] transition-colors">
-                KURUMSAL
-              </Link>
-              <Link href="/hizmetler" className="text-sm font-medium tracking-wider text-gray-900 hover:text-[#F7374F] transition-colors">
-                HİZMETLER
-              </Link>
-              <Link href="/urunler" className="text-sm font-medium tracking-wider text-gray-900 hover:text-[#F7374F] transition-colors">
-                ÜRÜNLER
-              </Link>
-              <Link href="/iletisim" className="text-sm font-medium tracking-wider text-gray-900 hover:text-[#F7374F] transition-colors">
-                İLETİŞİM
-              </Link>
-            </nav>
-
-            {/* CTA Button */}
-            <div className="hidden md:flex items-center">
-              <Link 
-                href="/iletisim" 
-                className="px-6 py-2.5 text-sm font-medium text-white bg-[#F7374F] rounded-full hover:bg-white hover:text-[#F7374F] border-2 border-[#F7374F] transition-all duration-300 -ml-10"
-              >
-                İletişime Geçin
-              </Link>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button className="md:hidden p-2 hover:bg-gray-50 rounded-md">
-              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen"
+    >
+      {/* Hero Section */}
+      <section className="relative h-[60vh] flex items-center">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/WhatsApp Image 2025-03-24 at 01.41.02.jpeg"
+            alt="NG IŞIK Hizmetler"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/50" />
         </div>
-      </header>
 
-      {/* Services Content */}
-      <main className="pt-32 pb-20 px-8">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold mb-8">Hizmetlerimiz</h1>
-          
-          {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {/* Service 1 */}
-            <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-8">
-              <div className="w-12 h-12 bg-[#F7374F]/10 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-[#F7374F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <motion.div
+          className="container mx-auto px-4 relative z-10 text-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            Hizmetlerimiz
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 max-w-2xl">
+            Profesyonel ekibimiz ve modern ekipmanlarımızla kaliteli hizmet sunuyoruz
+          </p>
+        </motion.div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Service Card 1 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="bg-gray-50 rounded-2xl p-8 group hover:bg-[#FB4141] transition-all duration-500"
+            >
+              <div className="w-12 h-12 bg-[#FB4141] rounded-lg flex items-center justify-center mb-6 group-hover:bg-white">
+                <svg className="w-6 h-6 text-white group-hover:text-[#FB4141] transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-4">Alüminyum Pencere Sistemleri</h3>
-              <p className="text-gray-600 mb-6">
-                Modern ve enerji verimli alüminyum pencere sistemleri ile yaşam alanlarınızı daha konforlu hale getiriyoruz.
+              <h3 className="text-xl font-semibold mb-4 font-space-mono text-gray-900 group-hover:text-white">Keşif ve Ölçüm</h3>
+              <p className="text-gray-600 font-space-mono-regular group-hover:text-white/90">
+                Uzman ekibimiz keşif için sizi ziyaret eder ve projeniz için en uygun çözümü sunar.
               </p>
-              <Link href="/urunler" className="text-[#F7374F] font-medium hover:text-[#F7374F]/80 transition-colors">
-                Detaylı Bilgi →
-              </Link>
-            </div>
+            </motion.div>
 
-            {/* Service 2 */}
-            <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-8">
-              <div className="w-12 h-12 bg-[#F7374F]/10 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-[#F7374F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            {/* Service Card 2 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="bg-gray-50 rounded-2xl p-8 group hover:bg-[#FB4141] transition-all duration-500"
+            >
+              <div className="w-12 h-12 bg-[#FB4141] rounded-lg flex items-center justify-center mb-6 group-hover:bg-white">
+                <svg className="w-6 h-6 text-white group-hover:text-[#FB4141] transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-4">Alüminyum Kapı Sistemleri</h3>
-              <p className="text-gray-600 mb-6">
-                Dayanıklı ve estetik alüminyum kapı sistemleri ile güvenli ve şık çözümler sunuyoruz.
+              <h3 className="text-xl font-semibold mb-4 font-space-mono text-gray-900 group-hover:text-white">Montaj</h3>
+              <p className="text-gray-600 font-space-mono-regular group-hover:text-white/90">
+                Profesyonel ekibimizle hızlı ve kaliteli montaj hizmeti sunuyoruz.
               </p>
-              <Link href="/urunler" className="text-[#F7374F] font-medium hover:text-[#F7374F]/80 transition-colors">
-                Detaylı Bilgi →
-              </Link>
-            </div>
+            </motion.div>
 
-            {/* Service 3 */}
-            <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-8">
-              <div className="w-12 h-12 bg-[#F7374F]/10 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-[#F7374F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+            {/* Service Card 3 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="bg-gray-50 rounded-2xl p-8 group hover:bg-[#FB4141] transition-all duration-500"
+            >
+              <div className="w-12 h-12 bg-[#FB4141] rounded-lg flex items-center justify-center mb-6 group-hover:bg-white">
+                <svg className="w-6 h-6 text-white group-hover:text-[#FB4141] transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-4">Alüminyum Cephe Sistemleri</h3>
-              <p className="text-gray-600 mb-6">
-                Modern mimariye uygun alüminyum cephe sistemleri ile binalarınıza değer katıyoruz.
+              <h3 className="text-xl font-semibold mb-4 font-space-mono text-gray-900 group-hover:text-white">Garanti</h3>
+              <p className="text-gray-600 font-space-mono-regular group-hover:text-white/90">
+                Tüm ürünlerimiz garantilidir ve teknik destek hizmeti sunuyoruz.
               </p>
-              <Link href="/urunler" className="text-[#F7374F] font-medium hover:text-[#F7374F]/80 transition-colors">
-                Detaylı Bilgi →
-              </Link>
-            </div>
+            </motion.div>
           </div>
+        </div>
+      </section>
 
-          {/* Process Section */}
-          <div className="mb-16">
-            <h2 className="text-2xl font-semibold mb-8 text-center">Çalışma Sürecimiz</h2>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-[#F7374F]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-[#F7374F]">1</span>
-                </div>
-                <h3 className="font-semibold mb-2">İletişim</h3>
-                <p className="text-gray-600 text-sm">İhtiyaçlarınızı dinliyoruz</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-[#F7374F]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-[#F7374F]">2</span>
-                </div>
-                <h3 className="font-semibold mb-2">Ölçüm</h3>
-                <p className="text-gray-600 text-sm">Detaylı ölçüm yapıyoruz</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-[#F7374F]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-[#F7374F]">3</span>
-                </div>
-                <h3 className="font-semibold mb-2">Teklif</h3>
-                <p className="text-gray-600 text-sm">Uygun teklif sunuyoruz</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-[#F7374F]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-[#F7374F]">4</span>
-                </div>
-                <h3 className="font-semibold mb-2">Uygulama</h3>
-                <p className="text-gray-600 text-sm">Profesyonel montaj yapıyoruz</p>
-              </div>
-            </div>
-          </div>
-
-          {/* CTA Section */}
-          <div className="bg-[#F7374F] rounded-2xl p-12 text-center text-white">
-            <h2 className="text-3xl font-bold mb-4">Hizmetlerimiz Hakkında Bilgi Alın</h2>
-            <p className="text-lg mb-8">
-              Detaylı bilgi ve teklif için hemen iletişime geçin.
+      {/* CTA Section */}
+      <section className="py-20 bg-[#FB4141]">
+        <div className="container mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              Size Özel Çözümler İçin Bizimle İletişime Geçin
+            </h2>
+            <p className="text-white/90 max-w-2xl mx-auto mb-8">
+              Profesyonel ekibimiz size en uygun çözümü sunmak için hazır.
             </p>
             <Link
               href="/iletisim"
-              className="inline-block px-8 py-4 bg-white text-[#F7374F] rounded-lg hover:bg-gray-100 transition-colors"
+              className="inline-block bg-white text-[#FB4141] px-8 py-3 rounded-full text-lg hover:bg-gray-100 transition-colors duration-300"
             >
-              İletişime Geçin
+              İletişime Geç
             </Link>
-          </div>
+          </motion.div>
         </div>
-      </main>
-    </div>
+      </section>
+    </motion.main>
   )
 } 
