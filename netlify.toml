@@ -8,11 +8,11 @@
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "18.19.0"
 
 # Production context
 [context.production]
-  environment = { NODE_VERSION = "18.x" }
+  environment = { NODE_VERSION = "18.19.0" }
 
 # Deploy Preview context
 [context.deploy-preview]
