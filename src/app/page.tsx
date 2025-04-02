@@ -567,7 +567,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="relative h-[400px] rounded-2xl overflow-hidden">
                 <Image
-                  src="/about.jpg"
+                  src="/WhatsApp Image 2025-03-24 at 01.41.02.jpeg"
                   alt="Hakkımızda"
                   fill
                   className="object-cover hover:scale-105 transition-transform duration-500"
@@ -580,7 +580,7 @@ export default function Home() {
               </div>
               <div className="relative h-[400px] rounded-2xl overflow-hidden">
                 <Image
-                  src="/Whatsapp Image 2025-03-24 at 01.41.02.jpeg"
+                  src="/WhatsApp Image 2025-03-24 at 01.41.02.jpeg"
                   alt="Hakkımızda"
                   fill
                   className="object-cover hover:scale-105 transition-transform duration-500"

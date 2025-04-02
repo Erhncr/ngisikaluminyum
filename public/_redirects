@@ -13,4 +13,6 @@
 /cuties              https://www.petsofnetlify.com
 
 # Author redirects with special characters
-/authors/c%C3%A9line /authors/about-c%C3%A9line 
+/authors/c%C3%A9line /authors/about-c%C3%A9line
+
+/* /index.html 200 
