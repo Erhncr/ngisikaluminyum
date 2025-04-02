@@ -4,8 +4,11 @@
 
 # Build settings
 [build]
-  publish = "out"
   command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "18"
 
 # Production context
 [context.production]
@@ -19,64 +22,13 @@
 [context.branch-deploy]
   command = "npm run build"
 
-# Basic redirects
+# Next.js specific redirects
 [[redirects]]
-  from = "/home"
-  to = "/"
-  status = 301
-  force = false
-
-# Blog redirects - most specific first
-[[redirects]]
-  from = "/blog/my-post.php"
-  to = "/blog/my-post"
-  status = 301
-  force = false
-
-[[redirects]]
-  from = "/blog/my-old-title"
-  to = "/blog/my-new-title"
-  status = 301
-  force = false
-
-[[redirects]]
-  from = "/blog/*"
-  to = "/blog"
-  status = 301
-  force = false
-
-# External redirects
-[[redirects]]
-  from = "/cuties"
-  to = "https://www.petsofnetlify.com"
-  status = 301
-  force = false
-
-# Author redirects with special characters
-[[redirects]]
-  from = "/authors/c%C3%A9line"
-  to = "/authors/about-c%C3%A9line"
-  status = 301
-  force = false
-
-# Signed proxy redirects (highest priority)
-[[redirects]]
-  from = "/api/*"
-  to = "https://api.example.com/:splat"
+  from = "/*"
+  to = "/.netlify/functions/server"
   status = 200
-  force = true
-  headers = {X-From = "Netlify"}
-  signed = "API_SIGNATURE_TOKEN"
 
-# Conditional redirects
-[[redirects]]
-  from = "/old-blog/*"
-  to = "/blog/:splat"
-  status = 301
-  force = false
-  conditions = {Language = ["tr"], Country = ["TR"]}
-
-# Headers
+# Headers for security and caching
 [[headers]]
   for = "/*"
   [headers.values]
@@ -93,6 +45,7 @@
       font-src 'self' data: https://fonts.gstatic.com;
     """
 
+# Cache static assets
 [[headers]]
   for = "/static/*"
   [headers.values]
@@ -133,9 +86,14 @@
       max-age=31536000,
       immutable"""
 
+# No caching for API routes
 [[headers]]
   for = "/api/*"
   [headers.values]
     Cache-Control = """
       no-store,
-      max-age=0""" 
+      max-age=0"""
+
+# Next.js plugin
+[[plugins]]
+  package = "@netlify/plugin-nextjs" 
