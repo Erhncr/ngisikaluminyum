@@ -1,0 +1,16 @@
+# Redirects from what the browser requests to what we serve
+# Rules are processed from top to bottom, first match wins
+
+# Home redirect
+/home                /
+
+# Blog redirects - most specific first
+/blog/my-post.php    /blog/my-post
+/blog/my-old-title   /blog/my-new-title
+/blog/*              /blog
+
+# External redirects
+/cuties              https://www.petsofnetlify.com
+
+# Author redirects with special characters
+/authors/c%C3%A9line /authors/about-c%C3%A9line 

@@ -1,0 +1,141 @@
+# Netlify configuration file
+# Redirect rules are processed after _redirects file
+# Rules are processed from top to bottom, first match wins
+
+# Build settings
+[build]
+  publish = "out"
+  command = "npm run build"
+
+# Production context
+[context.production]
+  environment = { NODE_VERSION = "18.x" }
+
+# Deploy Preview context
+[context.deploy-preview]
+  command = "npm run build"
+
+# Branch Deploy context
+[context.branch-deploy]
+  command = "npm run build"
+
+# Basic redirects
+[[redirects]]
+  from = "/home"
+  to = "/"
+  status = 301
+  force = false
+
+# Blog redirects - most specific first
+[[redirects]]
+  from = "/blog/my-post.php"
+  to = "/blog/my-post"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/blog/my-old-title"
+  to = "/blog/my-new-title"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/blog/*"
+  to = "/blog"
+  status = 301
+  force = false
+
+# External redirects
+[[redirects]]
+  from = "/cuties"
+  to = "https://www.petsofnetlify.com"
+  status = 301
+  force = false
+
+# Author redirects with special characters
+[[redirects]]
+  from = "/authors/c%C3%A9line"
+  to = "/authors/about-c%C3%A9line"
+  status = 301
+  force = false
+
+# Signed proxy redirects (highest priority)
+[[redirects]]
+  from = "/api/*"
+  to = "https://api.example.com/:splat"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
+  signed = "API_SIGNATURE_TOKEN"
+
+# Conditional redirects
+[[redirects]]
+  from = "/old-blog/*"
+  to = "/blog/:splat"
+  status = 301
+  force = false
+  conditions = {Language = ["tr"], Country = ["TR"]}
+
+# Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    X-XSS-Protection = "1; mode=block"
+    Content-Security-Policy = """
+      default-src 'self';
+      img-src 'self' data: https:;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval';
+      style-src 'self' 'unsafe-inline';
+      font-src 'self' data: https://fonts.gstatic.com;
+    """
+
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = """
+      public,
+      max-age=31536000,
+      immutable"""
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = """
+      public,
+      max-age=31536000,
+      immutable"""
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = """
+      public,
+      max-age=31536000,
+      immutable"""
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = """
+      public,
+      max-age=31536000,
+      immutable"""
+
+[[headers]]
+  for = "/*.woff2"
+  [headers.values]
+    Cache-Control = """
+      public,
+      max-age=31536000,
+      immutable"""
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = """
+      no-store,
+      max-age=0""" 
