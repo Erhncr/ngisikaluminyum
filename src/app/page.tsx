@@ -2,14 +2,31 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { useInView } from "react-intersection-observer"
 
 export default function Home() {
   const [currentImage, setCurrentImage] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const { ref: statsRef, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true
+  });
   const images = [
     "/1b000a8b-3405-4abc-ad3b-e7baf9a427aa.png",
     "/1b000a8b-3405-4aaaabc-ad3b-e7baf9a427aa.png",
     "/illustrations/sineklik.png"
+  ];
+
+  const stats = [
+    { id: 'count1', value: 20, label: 'Yıllık Deneyim', suffix: '+' },
+    { id: 'count2', value: 1000, label: 'Tamamlanan Proje', suffix: '+' },
+    { id: 'count3', value: 50, label: 'Uzman Personel', suffix: '+' },
+    { id: 'count4', value: 100, label: 'Müşteri Memnuniyeti', suffix: '%' }
   ];
 
   useEffect(() => {
@@ -55,14 +72,71 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
+        setIsMobileMenuOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
+  useEffect(() => {
+    setIsVisible(true)
+  }, [])
+
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  }
+
   return (
-    <div className="min-h-screen bg-white">
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen"
+    >
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white">
+      <header className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white/95 backdrop-blur-sm shadow-md" : "bg-transparent"
+      }`}>
         <div className="max-w-[1400px] h-[80px] mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between h-full">
             {/* Logo */}
-            <Link href="/" className="relative w-[120px] md:w-[140px] h-[48px] md:h-[56px] group">
+            <Link href="/" className="relative w-[120px] md:w-[140px] h-[48px] md:h-[56px] group" aria-label="NG IŞIK Ana Sayfa">
               <Image
                 src="/ngisiklogo.png"
                 alt="NG IŞIK Logo"
@@ -79,18 +153,34 @@ export default function Home() {
               />
             </Link>
 
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-8 lg:space-x-12">
-              <Link href="/kurumsal" className="text-sm font-medium text-gray-900 hover:text-[#F7374F] transition-colors">
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-8 lg:space-x-12" aria-label="Ana Menü">
+              <Link 
+                href="/kurumsal" 
+                className="text-sm font-medium text-gray-900 hover:text-[#F7374F] transition-colors duration-300"
+                aria-current={window.location.pathname === '/kurumsal' ? 'page' : undefined}
+              >
                 Kurumsal
               </Link>
-              <Link href="/hizmetler" className="text-sm font-medium text-gray-900 hover:text-[#F7374F] transition-colors">
+              <Link 
+                href="/hizmetler" 
+                className="text-sm font-medium text-gray-900 hover:text-[#F7374F] transition-colors duration-300"
+                aria-current={window.location.pathname === '/hizmetler' ? 'page' : undefined}
+              >
                 Hizmetler
               </Link>
-              <Link href="/urunler" className="text-sm font-medium text-gray-900 hover:text-[#F7374F] transition-colors">
+              <Link 
+                href="/urunler" 
+                className="text-sm font-medium text-gray-900 hover:text-[#F7374F] transition-colors duration-300"
+                aria-current={window.location.pathname === '/urunler' ? 'page' : undefined}
+              >
                 Ürünler
               </Link>
-              <Link href="/iletisim" className="text-sm font-medium text-gray-900 hover:text-[#F7374F] transition-colors">
+              <Link 
+                href="/iletisim" 
+                className="text-sm font-medium text-gray-900 hover:text-[#F7374F] transition-colors duration-300"
+                aria-current={window.location.pathname === '/iletisim' ? 'page' : undefined}
+              >
                 İletişim
               </Link>
             </nav>
@@ -100,243 +190,157 @@ export default function Home() {
               <Link 
                 href="/iletisim" 
                 className="px-6 py-2.5 text-sm font-medium text-white bg-[#F7374F] rounded-md hover:bg-[#F7374F]/90 transition-all duration-300"
+                aria-label="İletişime Geç"
               >
                 İletişime Geçin
               </Link>
             </div>
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden p-2 hover:bg-gray-50 rounded-md">
-              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+            <button 
+              className="md:hidden relative z-50 p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? "Menüyü Kapat" : "Menüyü Aç"}
+              aria-expanded={isMobileMenuOpen}
+            >
+              <div className="w-6 h-0.5 bg-gray-700 mb-1.5 transition-transform duration-300" />
+              <div className="w-6 h-0.5 bg-gray-700 mb-1.5 transition-opacity duration-300" />
+              <div className="w-6 h-0.5 bg-gray-700 transition-transform duration-300" />
             </button>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              ref={mobileMenuRef}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden fixed inset-0 bg-white z-40 pt-20"
+            >
+              <div className="container mx-auto px-4">
+                <div className="flex flex-col space-y-6">
+                  <Link 
+                    href="/kurumsal" 
+                    className="text-2xl text-gray-700 hover:text-[#FB4141] transition-colors duration-300"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Kurumsal
+                  </Link>
+                  <Link 
+                    href="/hizmetler" 
+                    className="text-2xl text-gray-700 hover:text-[#FB4141] transition-colors duration-300"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Hizmetler
+                  </Link>
+                  <Link 
+                    href="/urunler" 
+                    className="text-2xl text-gray-700 hover:text-[#FB4141] transition-colors duration-300"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Ürünler
+                  </Link>
+                  <Link 
+                    href="/iletisim" 
+                    className="text-2xl text-gray-700 hover:text-[#FB4141] transition-colors duration-300"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    İletişim
+                  </Link>
+                  <Link
+                    href="/iletisim"
+                    className="bg-[#FB4141] text-white px-6 py-3 rounded-full text-center hover:bg-[#F7374F] transition-colors duration-300"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    İletişime Geç
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* Hero Section */}
-      <section className="relative bg-[#FB4141] overflow-hidden">
-        <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 py-20">
-            <div className="flex flex-col justify-center">
-              <div className="flex items-start flex-col mb-16">
-                <div className="inline-block px-4 py-2 bg-white/10 rounded-full text-sm font-medium text-white mb-6">
-                  MODERN ÇÖZÜMLER
-                </div>
-                <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 font-space-mono">
-                  Görünmez Koruma,<br />
-                  Göze Hitap Eden Tasarım
-                </h1>
-                <p className="text-white/90 text-lg max-w-xl font-space-mono-regular mb-8">
-                  Yaşam alanlarınızı yenileyin, enerji tasarrufu sağlayın ve modern mimariye uygun çözümler elde edin.
-                </p>
-              </div>
-              <Link
-                href="/iletisim"
-                className="inline-block px-8 py-4 bg-white text-[#FB4141] rounded-lg border-2 border-transparent hover:bg-transparent hover:text-white hover:border-white transition-all duration-300 w-fit font-space-mono"
-              >
-                İletişime Geçin
-              </Link>
-            </div>
-            <div className="relative w-full h-[900px] rounded-2xl overflow-hidden bg-[#FB4141]">
-              {images.map((image, index) => (
-                <Image
-                  key={index}
-                  src={image}
-                  alt="Hero Image"
-                  fill
-                  className={`object-contain transition-opacity duration-2000 ${
-                    currentImage === index ? "opacity-100" : "opacity-0"
-                  }`}
-                  priority={index === 0}
-                />
-              ))}
-              {/* Dots Navigation */}
-              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
-                {images.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`w-3 h-3 rounded-full transition-colors duration-2000 ${
-                      currentImage === index ? "bg-white" : "bg-white/30"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
+      <section className="relative h-screen flex items-center">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={images[currentImage]}
+            alt="NG IŞIK Hero"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/50" />
+        </div>
+
+        <motion.div
+          className="container mx-auto px-4 relative z-10 text-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            NG IŞIK
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 max-w-2xl">
+            Alüminyum ve PVC sistemleri ile yaşam alanlarınızı dönüştürüyoruz
+          </p>
+          <Link
+            href="/iletisim"
+            className="inline-block bg-[#FB4141] text-white px-8 py-3 rounded-full text-lg hover:bg-[#F7374F] transition-colors duration-300"
+            aria-label="İletişime Geç"
+          >
+            İletişime Geç
+          </Link>
+        </motion.div>
+
+        {/* Image Navigation */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImage(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                currentImage === index ? "bg-white w-6" : "bg-white/50"
+              }`}
+              aria-label={`${index + 1}. görsele geç`}
+            />
+          ))}
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-          <div className="flex items-start flex-col mb-16">
-            <div className="inline-block px-4 py-2 bg-gray-100 rounded-full text-sm font-medium text-gray-600 mb-6">
-              İSTATİSTİKLER
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-space-mono">
-              Başarı Hikayemiz
-            </h2>
-            <p className="text-gray-600 max-w-xl font-space-mono-regular">
-              20 yıllık deneyimimizle müşterilerimize en iyi hizmeti sunuyoruz.
-            </p>
-          </div>
+      <motion.section
+        ref={statsRef}
+        variants={containerVariants}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+        className="py-20 bg-gray-50"
+      >
+        <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Stat Card 1 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm group hover:bg-[#FB4141] transition-all duration-300">
-              <div className="relative w-[265px] h-[265px] mx-auto mb-4">
-                <svg className="w-[265px] h-[265px] transform -rotate-90">
-                  <circle
-                    className="text-gray-100 group-hover:text-white/20"
-                    strokeWidth="12"
-                    stroke="currentColor"
-                    fill="transparent"
-                    r="120"
-                    cx="132.5"
-                    cy="132.5"
-                  />
-                  <circle
-                    className="text-[#FB4141] group-hover:text-white"
-                    strokeWidth="12"
-                    strokeDasharray={753.6}
-                    strokeDashoffset={753.6}
-                    strokeLinecap="round"
-                    stroke="currentColor"
-                    fill="transparent"
-                    r="120"
-                    cx="132.5"
-                    cy="132.5"
-                    style={{
-                      animation: "progress 2s ease-out forwards",
-                    }}
-                  />
-                </svg>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <div className="text-5xl font-bold text-gray-600 group-hover:text-white transition-colors duration-300">
-                    <span id="count1">0</span>+
-                  </div>
+            {/* Stat Cards with improved animations */}
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.id}
+                variants={itemVariants}
+                className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+              >
+                <div className="text-4xl font-bold text-[#FB4141] mb-4">
+                  {inView ? stat.value : "0"}
+                  {stat.suffix}
                 </div>
-              </div>
-              <div className="text-center text-gray-600 text-sm font-light group-hover:text-white transition-colors duration-300">Yıllık Deneyim</div>
-            </div>
-
-            {/* Stat Card 2 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm group hover:bg-[#FB4141] transition-all duration-300">
-              <div className="relative w-[265px] h-[265px] mx-auto mb-4">
-                <svg className="w-[265px] h-[265px] transform -rotate-90">
-                  <circle
-                    className="text-gray-100 group-hover:text-white/20"
-                    strokeWidth="12"
-                    stroke="currentColor"
-                    fill="transparent"
-                    r="120"
-                    cx="132.5"
-                    cy="132.5"
-                  />
-                  <circle
-                    className="text-[#FB4141] group-hover:text-white"
-                    strokeWidth="12"
-                    strokeDasharray={753.6}
-                    strokeDashoffset={753.6}
-                    strokeLinecap="round"
-                    stroke="currentColor"
-                    fill="transparent"
-                    r="120"
-                    cx="132.5"
-                    cy="132.5"
-                    style={{
-                      animation: "progress 2s ease-out forwards",
-                    }}
-                  />
-                </svg>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <div className="text-5xl font-bold text-gray-600 group-hover:text-white transition-colors duration-300">
-                    <span id="count2">0</span>+
-                  </div>
-                </div>
-              </div>
-              <div className="text-center text-gray-600 text-sm font-light group-hover:text-white transition-colors duration-300">Tamamlanan Proje</div>
-            </div>
-
-            {/* Stat Card 3 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm group hover:bg-[#FB4141] transition-all duration-300">
-              <div className="relative w-[265px] h-[265px] mx-auto mb-4">
-                <svg className="w-[265px] h-[265px] transform -rotate-90">
-                  <circle
-                    className="text-gray-100 group-hover:text-white/20"
-                    strokeWidth="12"
-                    stroke="currentColor"
-                    fill="transparent"
-                    r="120"
-                    cx="132.5"
-                    cy="132.5"
-                  />
-                  <circle
-                    className="text-[#FB4141] group-hover:text-white"
-                    strokeWidth="12"
-                    strokeDasharray={753.6}
-                    strokeDashoffset={753.6}
-                    strokeLinecap="round"
-                    stroke="currentColor"
-                    fill="transparent"
-                    r="120"
-                    cx="132.5"
-                    cy="132.5"
-                    style={{
-                      animation: "progress 2s ease-out forwards",
-                    }}
-                  />
-                </svg>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <div className="text-5xl font-bold text-gray-600 group-hover:text-white transition-colors duration-300">
-                    <span id="count3">0</span>+
-                  </div>
-                </div>
-              </div>
-              <div className="text-center text-gray-600 text-sm font-light group-hover:text-white transition-colors duration-300">Uzman Personel</div>
-            </div>
-
-            {/* Stat Card 4 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm group hover:bg-[#FB4141] transition-all duration-300">
-              <div className="relative w-[265px] h-[265px] mx-auto mb-4">
-                <svg className="w-[265px] h-[265px] transform -rotate-90">
-                  <circle
-                    className="text-gray-100 group-hover:text-white/20"
-                    strokeWidth="12"
-                    stroke="currentColor"
-                    fill="transparent"
-                    r="120"
-                    cx="132.5"
-                    cy="132.5"
-                  />
-                  <circle
-                    className="text-[#FB4141] group-hover:text-white"
-                    strokeWidth="12"
-                    strokeDasharray={753.6}
-                    strokeDashoffset={753.6}
-                    strokeLinecap="round"
-                    stroke="currentColor"
-                    fill="transparent"
-                    r="120"
-                    cx="132.5"
-                    cy="132.5"
-                    style={{
-                      animation: "progress 2s ease-out forwards",
-                    }}
-                  />
-                </svg>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <div className="text-5xl font-bold text-gray-600 group-hover:text-white transition-colors duration-300">
-                    <span id="count4">0</span>%
-                  </div>
-                </div>
-              </div>
-              <div className="text-center text-gray-600 text-sm font-light group-hover:text-white transition-colors duration-300">Müşteri Memnuniyeti</div>
-            </div>
+                <div className="text-gray-600">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Products Section */}
       <section className="py-20 bg-black">
@@ -776,6 +780,41 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </div>
+
+      {/* Add custom animations to tailwind.config.js */}
+      <style jsx global>{`
+        @keyframes progress {
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+        @keyframes fade-in {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes slide-up {
+          from { transform: translateY(20px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fade-in-up {
+          from { transform: translateY(20px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.5s ease-out forwards;
+        }
+        .animate-slide-up {
+          animation: slide-up 0.5s ease-out forwards;
+        }
+        .animate-slide-up-delayed {
+          animation: slide-up 0.5s ease-out 0.2s forwards;
+          opacity: 0;
+        }
+        .animate-fade-in-up {
+          animation: fade-in-up 0.5s ease-out 0.4s forwards;
+          opacity: 0;
+        }
+      `}</style>
+    </motion.main>
   )
 } 
