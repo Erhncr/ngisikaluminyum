@@ -1,71 +1,83 @@
 import React from "react"
 import Image from "next/image"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
+import { ArrowRightIcon } from 'lucide-react'
 
-// Temporary product data
-const products = [
+// Placeholder service data for the logistics theme
+const services = [
   {
     id: 1,
-    name: "Stor Pencere Sineklik",
-    description: "Modern ve kullanışlı stor sineklik.",
+    name: "Air Freight",
+    description: "Fast and reliable air cargo solutions for time-sensitive shipments.",
+    icon: ArrowRightIcon,
     image: "/placeholder.svg",
-    slug: "stor-pencere-sineklik" // Use slug instead of link
+    slug: "air-freight",
   },
   {
     id: 2,
-    name: "Menteşeli Kapı Sineklik",
-    description: "Klasik ve dayanıklı kapı sinekliği.",
+    name: "Ocean Freight",
+    description: "Cost-effective and comprehensive sea freight services worldwide.",
+    icon: ArrowRightIcon,
     image: "/placeholder.svg",
-    slug: "menteseli-kapi-sineklik" // Use slug instead of link
+    slug: "ocean-freight",
   },
   {
     id: 3,
-    name: "Plise Pencere Sineklik",
-    description: "Estetik ve katlanabilir pencere sinekliği.",
+    name: "Road Freight",
+    description: "Flexible and efficient land transportation across regions.",
+    icon: ArrowRightIcon,
     image: "/placeholder.svg",
-    slug: "plise-pencere-sineklik" // Use slug instead of link
-  }
+    slug: "road-freight",
+  },
 ]
 
+// Renaming function conceptually to ServicesShowcase
 export function FeaturedProducts() {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-secondary">
+    <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-light">
       <div className="container px-4 md:px-6">
         <h2 className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl mb-8 md:mb-12 text-foreground">
-          Öne Çıkan Ürünlerimiz
+          Our Services
         </h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <Card key={product.id} className="overflow-hidden transition-transform duration-200 ease-in-out hover:scale-[1.03] hover:shadow-lg">
-              <CardHeader className="p-0"> {/* Added p-0 to remove padding */}
-                {/* Link using product.slug */}
-                <Link href={`/urunler/${product.slug}`}>
+          {services.map((service) => (
+            <Card
+              key={service.id}
+              className="overflow-hidden transition-transform duration-300 ease-in-out hover:scale-[1.03] hover:shadow-xl flex flex-col"
+            >
+              <CardHeader className="p-0">
+                <Link href={`/services/${service.slug}`} aria-label={service.name}>
                     <Image
-                        alt={product.name}
-                        className="aspect-[4/3] w-full overflow-hidden rounded-t-lg object-cover hover:opacity-80 transition-opacity"
-                        height={300}
-                        src={product.image}
-                        width={400}
+                      alt={service.name}
+                      className="aspect-[16/9] w-full object-cover"
+                      height={225}
+                      src={service.image}
+                      width={400}
                     />
-                </Link>
+                 </Link>
               </CardHeader>
-              <CardContent className="p-4 space-y-2">
+              <CardContent className="p-4 space-y-1 flex-grow">
                 <CardTitle>
-                   {/* Link using product.slug */}
-                   <Link href={`/urunler/${product.slug}`} className="hover:underline">
-                     {product.name}
-                   </Link>
+                  <Link href={`/services/${service.slug}`} className="hover:underline">
+                    {service.name}
+                  </Link>
                 </CardTitle>
                 <p className="text-sm text-muted-foreground">
-                  {product.description}
+                  {service.description}
                 </p>
               </CardContent>
-              <CardFooter className="p-4 pt-0">
-                {/* Button link using product.slug */}
+              <CardFooter className="p-4 pt-0 mt-auto">
                 <Button asChild variant="outline" className="w-full">
-                  <Link href={`/urunler/${product.slug}`}>Detayları Gör</Link>
+                  <Link href={`/services/${service.slug}`}>Learn More</Link>
                 </Button>
               </CardFooter>
             </Card>

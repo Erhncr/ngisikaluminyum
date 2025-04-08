@@ -1,86 +1,98 @@
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image' // Import Image component
-import { FacebookIcon, TwitterIcon, InstagramIcon } from 'lucide-react' // Removed MountainIcon
+import Image from 'next/image' // Keep Image component
+import { FacebookIcon, TwitterIcon, InstagramIcon, LinkedinIcon } from 'lucide-react' // Added LinkedinIcon as an example
 
-// Footer links based on PRD
-const footerLinks = [
-  { href: '/gizlilik-politikasi', label: 'Gizlilik Politikası' },
-  { href: '/kullanim-kosullari', label: 'Kullanım Koşulları' },
-  { href: '/iletisim', label: 'İletişim' },
+// Footer links based on logistics spec nav + common links
+const mainNavLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/company', label: 'Company' },
+  { href: '/services', label: 'Services' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/news', label: 'News' },
+  { href: '/iletisim', label: 'Contact' }, // Changed from İletişim
+]
+
+const legalLinks = [
+  { href: '/privacy-policy', label: 'Privacy Policy' }, // Updated href/label
+  { href: '/terms-of-service', label: 'Terms of Service' }, // Updated href/label
 ]
 
 export function Footer() {
   return (
-    <footer className="bg-black text-gray-300 py-8">
+    <footer className="bg-black text-gray-light py-8"> {/* Use gray-light from config */}
       <div className="container px-4 md:px-6">
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
-          {/* Logo & Description - Use Image component */}
+          {/* Logo & Description */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
               <Image
-                src="/ngisiklogo.png"
-                alt="NG Işık Alüminyum Logo"
-                width={32} // Slightly smaller for footer
-                height={32}
+                src="/ngisiklogo.png" // Placeholder logo
+                alt="Company Logo" // Updated alt text
+                width={100} // Example width
+                height={40} // Example height
                 className="h-8 w-auto"
               />
-              <span className="font-semibold text-lg text-white">NG Işık Alüminyum</span>
+              {/* Optional: Add text logo */}
+              {/* <span className="font-semibold text-lg text-white">[Şirket Adı]</span> */}
             </Link>
-            <p className="text-sm text-gray-400">
-              Kaliteli ve estetik sineklik çözümleri.
+            <p className="text-sm text-gray-medium"> {/* Use gray-medium */} 
+              Your reliable partner for global cargo and logistics solutions.
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links (Main Nav + Legal) */}
           <div className="space-y-2">
-            <h4 className="font-semibold text-white">Hızlı Bağlantılar</h4>
+            <h4 className="font-semibold text-white">Quick Links</h4>
             <ul className="space-y-1">
-              {footerLinks.map((link) => (
+              {[...mainNavLinks, ...legalLinks].map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-gray-200 hover:underline"
+                    className="text-sm text-gray-medium hover:text-white hover:underline" /* Use gray-medium */
                   >
                     {link.label}
                   </Link>
                 </li>
               ))}
-              {/* Add more links as needed */}
             </ul>
           </div>
 
-          {/* Contact Information */}
+          {/* Contact Information (Placeholders) */}
           <div className="space-y-2">
-            <h4 className="font-semibold text-white">İletişim</h4>
-            <address className="not-italic text-sm text-gray-400">
-              Veysel Karani, Küçükbalıklı Cd. no:113, 16270 Osmangazi̇/Bursa<br />
-              Telefon: <a href="tel:+905367277217" className="hover:underline hover:text-gray-200">0536 727 72 17</a><br />
-              Email: <a href="mailto:info@ngisikaluminyum.com" className="hover:underline hover:text-gray-200">info@ngisikaluminyum.com</a>
+            <h4 className="font-semibold text-white">Contact Us</h4>
+            <address className="not-italic text-sm text-gray-medium"> {/* Use gray-medium */} 
+              123 Logistics Way<br />
+              Suite 400<br />
+              Metropolis, ST 12345<br />
+              Phone: <a href="tel:+15551234567" className="hover:underline hover:text-white">+1 (555) 123-4567</a><br />
+              Email: <a href="mailto:contact@company.com" className="hover:underline hover:text-white">contact@company.com</a>
             </address>
           </div>
 
           {/* Social Media */}
           <div className="space-y-2">
-            <h4 className="font-semibold text-white">Bizi Takip Edin</h4>
+            <h4 className="font-semibold text-white">Follow Us</h4>
             <div className="flex space-x-3">
-              <Link href="#" aria-label="Facebook">
-                <FacebookIcon className="h-5 w-5 text-gray-400 hover:text-gray-200" />
+              <Link href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                <FacebookIcon className="h-5 w-5 text-gray-medium hover:text-white" /> {/* Use gray-medium */} 
               </Link>
-              <Link href="#" aria-label="Twitter">
-                <TwitterIcon className="h-5 w-5 text-gray-400 hover:text-gray-200" />
+              <Link href="#" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                <TwitterIcon className="h-5 w-5 text-gray-medium hover:text-white" /> {/* Use gray-medium */} 
               </Link>
-              <Link href="#" aria-label="Instagram">
-                <InstagramIcon className="h-5 w-5 text-gray-400 hover:text-gray-200" />
+              <Link href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                <InstagramIcon className="h-5 w-5 text-gray-medium hover:text-white" /> {/* Use gray-medium */} 
               </Link>
-              {/* Add more social links as needed */}
+               <Link href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                <LinkedinIcon className="h-5 w-5 text-gray-medium hover:text-white" /> {/* Added LinkedIn */} 
+              </Link>
             </div>
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="mt-8 border-t border-gray-700 pt-4 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()} NG Işık Alüminyum. Tüm hakları saklıdır.
+        {/* Copyright - Updated Company Name */}
+        <div className="mt-8 border-t border-gray-dark pt-4 text-center text-sm text-gray-dark"> {/* Use gray-dark */} 
+          © {new Date().getFullYear()} [Şirket Adı]. All rights reserved.
         </div>
       </div>
     </footer>

@@ -4,33 +4,33 @@ import Image from 'next/image' // Import Image component
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { MenuIcon } from 'lucide-react' // Removed MountainIcon
-import { ThemeToggle } from "@/components/theme-toggle" // Import ThemeToggle
 
-// Updated nav links based on the reference image style
+// Updated nav links for the logistics site spec
 const navLinks = [
-  { href: '/', label: 'Ana Sayfa' },
-  // { href: '/hakkimizda', label: 'Şirket' }, // Renamed from Hakkımızda
-  { href: '/urunler', label: 'Ürünler' }, // Renamed from Hizmetler
-  // { href: '/fiyatlandirma', label: 'Fiyatlandırma' }, // Added Pricing
-  // { href: '/haberler', label: 'Haberler' }, // Added News
-  { href: '/hakkimizda', label: 'Hakkımızda' }, // Keep About Us
+  { href: '/', label: 'Home' },
+  { href: '/company', label: 'Company' }, // Placeholder href
+  { href: '/services', label: 'Services' }, // Placeholder href
+  { href: '/pricing', label: 'Pricing' }, // Placeholder href
+  { href: '/news', label: 'News' },       // Placeholder href
 ]
 
 export function Header() {
   return (
-    // Remove background opacity/blur, make it solid white/dark background
+    // Sticky header with background color based on theme (white/black)
     <header className="sticky top-0 z-50 w-full border-b bg-background">
-      <div className="container flex h-16 items-center justify-between px-4 md:px-6"> {/* Increased height slightly */}
-        {/* Logo */}
+      <div className="container flex h-16 items-center justify-between px-4 md:px-6">
+        {/* Logo - Assuming ngisiklogo.png is a placeholder */}
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <Image
-            src="/ngisiklogo.png"
-            alt="NG Işık Alüminyum Logo"
-            width={100} // Adjust width as needed for a potentially wider logo
+            src="/ngisiklogo.png" // Placeholder logo
+            alt="Company Logo" // Updated alt text
+            width={100}
             height={40}
-            className="h-7 w-auto" // Adjust height
-            priority // Prioritize loading the logo
+            className="h-8 w-auto" // Adjusted height slightly
+            priority
           />
+          {/* Optionally add company name text here */}
+          {/* <span className="font-semibold">[Şirket Adı]</span> */}
         </Link>
 
         {/* Desktop Navigation - Centered */}
@@ -39,7 +39,7 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              // Use foreground color for links, slightly muted on hover
+              // Standard foreground text, slightly dimmer on hover
               className="text-sm font-medium text-foreground transition-colors hover:text-foreground/80"
             >
               {link.label}
@@ -47,15 +47,14 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Right side items: Contact Button, Theme Toggle, Mobile Menu */}
-        <div className="flex items-center space-x-2">
-          {/* Contact Button (Desktop) */}
-          <Button asChild className="hidden lg:inline-flex bg-primary hover:bg-primary/90">{/* Ensure primary red */}
-            <Link href="/iletisim">İletişim</Link>
+        {/* Right side items: Contact Button, Mobile Menu */}
+        <div className="flex items-center space-x-4"> {/* Adjusted spacing slightly */}
+          {/* Contact Button (Desktop) - Primary Orange */}
+          <Button asChild className="hidden lg:inline-flex bg-primary text-primary-foreground hover:bg-primary/90">
+            <Link href="/iletisim">Contact</Link> {/* Updated text and href if needed */} 
           </Button>
 
-          {/* Theme Toggle */}
-          <ThemeToggle />
+          {/* Removed ThemeToggle */}
 
           {/* Mobile Menu Trigger */}
           <div className="lg:hidden">
@@ -63,7 +62,7 @@ export function Header() {
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <MenuIcon className="h-6 w-6" />
-                  <span className="sr-only">Menüyü Aç</span>
+                  <span className="sr-only">Open Menu</span> {/* Updated text */}
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
@@ -71,21 +70,20 @@ export function Header() {
                   {/* Mobile Logo */}
                   <Link href="/" className="mb-4 flex items-center space-x-2">
                     <Image
-                        src="/ngisiklogo.png"
-                        alt="NG Işık Alüminyum Logo"
-                        width={32} // Slightly smaller for mobile menu
+                        src="/ngisiklogo.png" // Placeholder
+                        alt="Company Logo" // Updated alt text
+                        width={80} // Adjusted size
                         height={32}
                         className="h-8 w-auto"
                     />
                   </Link>
 
-                  {/* Mobile Navigation Links */}
+                  {/* Mobile Navigation Links - Updated */}
                   <nav className="grid gap-2">
                     {navLinks.map((link) => (
                         <Link
                         key={link.href}
                         href={link.href}
-                        // Larger text for mobile menu
                         className="text-base font-medium text-foreground transition-colors hover:text-foreground/80"
                         >
                         {link.label}
@@ -93,9 +91,9 @@ export function Header() {
                     ))}
                   </nav>
 
-                   {/* Contact Button (Mobile) */}
-                   <Button asChild size="lg" className="mt-4 bg-primary hover:bg-primary/90">
-                     <Link href="/iletisim">İletişim</Link>
+                   {/* Contact Button (Mobile) - Updated text */}
+                   <Button asChild size="lg" className="mt-4 bg-primary text-primary-foreground hover:bg-primary/90">
+                     <Link href="/iletisim">Contact</Link> {/* Updated text and href if needed */} 
                    </Button>
                 </div>
               </SheetContent>
