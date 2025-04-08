@@ -77,10 +77,14 @@
 
 @layer base {
   * {
-    @apply border-border;
+    /* Removed @apply border-border; */
+    /* Apply box-sizing: border-box if needed, often default with Tailwind */
+    /* box-sizing: border-box; */
   }
   body {
     @apply bg-background text-foreground;
-    /* Ensure no conflicting background styles */
+    /* Ensure fonts are antialiased for better readability */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 } 
