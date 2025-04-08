@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
-import { MountainIcon, FacebookIcon, TwitterIcon, InstagramIcon } from 'lucide-react' // Example social icons
+import Image from 'next/image' // Import Image component
+import { FacebookIcon, TwitterIcon, InstagramIcon } from 'lucide-react' // Removed MountainIcon
 
 // Footer links based on PRD
 const footerLinks = [
@@ -14,10 +15,16 @@ export function Footer() {
     <footer className="bg-gray-100 py-8 dark:bg-gray-800">
       <div className="container px-4 md:px-6">
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
-          {/* Logo & Description */}
+          {/* Logo & Description - Use Image component */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-              <MountainIcon className="h-6 w-6" />
+              <Image
+                src="/ngisiklogo.png"
+                alt="NG Işık Alüminyum Logo"
+                width={32} // Slightly smaller for footer
+                height={32}
+                className="h-8 w-auto"
+              />
               <span className="font-semibold text-lg">NG Işık Alüminyum</span>
             </Link>
             <p className="text-sm text-gray-600 dark:text-gray-400">

@@ -19,8 +19,8 @@ const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "NG Işık Alüminyum",
-  "url": "https://www.ngisikaluminyum.com", // Replace with actual domain
-  "logo": "https://www.ngisikaluminyum.com/logo.png", // Replace with actual logo URL
+  "url": "https://ngisikaluminyum.com", // Assuming this is the correct domain
+  "logo": "https://ngisikaluminyum.com/ngisiklogo.png", // Updated logo URL
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+90-536-727-72-17",
