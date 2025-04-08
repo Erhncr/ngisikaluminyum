@@ -1,164 +1,107 @@
-# NG Işık Alüminyum Web Sitesi - Ürün Gereksinimleri Dokümanı
+# [Şirket Adı] Lojistik Web Sitesi Tasarım Şartnamesi
 
-## 1. Proje Genel Bakış
-- **Proje Adı**: NG Işık Alüminyum Web Sitesi
-- **Domain**: ngisikaluminyum.com
-- **Sektör**: Üretim - Pencere ve Kapı Sineklikleri
-- **Hedef Kitle**: Pencere ve kapı sinekliği arayan konut ve ticari müşteriler
+## Genel Bakış
 
-## 2. Teknik Altyapı
-- **Framework**: Next.js 14 (App Router)
-- **Stil**: Tailwind CSS
-- **UI Bileşenleri**: Shadcn UI, Radix UI
-- **Animasyon**: Framer Motion
-- **Form Yönetimi**: React Hook Form + Zod
-- **Görsel Optimizasyonu**: Next.js Image Component
-- **Yayınlama**: Vercel
+[Şirket Adı], global ölçekte kargo ve lojistik hizmetleri sunan bir şirkettir. Yeni web sitemiz, profesyonel, güvenilir ve modern bir görünüme sahip olmalı, hizmetlerimizi etkili bir şekilde tanıtmalı ve potansiyel müşterileri harekete geçirmelidir.
 
-## 3. Temel Özellikler
+## Tasarım Hedefleri
 
-### 3.1 Ana Sayfa
-- Yüksek kaliteli ürün görselleri ile hero bölümü
-- Öne çıkan ürünler vitrini
-- Şirket tanıtım bölümü
-- Harekete geçirici butonlar
-- Yumuşak kaydırma animasyonları
-- Duyarlı görsel galerisi
+- Profesyonel ve güvenilir bir marka imajı oluşturmak
+- Hizmetlerimizi net ve etkileyici bir şekilde sunmak
+- Kullanıcı dostu ve sezgisel bir navigasyon sağlamak
+- Mobil cihazlarda mükemmel performans göstermek
+- Dönüşüm oranlarını artırmak için stratejik CTA'lar kullanmak
 
-### 3.2 Ürün Kataloğu
-- Izgara düzeninde ürün görüntüleme
-- Filtreleme seçenekleri:
-  - Ürün tipi (Pencere Sineklikleri, Kapı Sineklikleri)
-  - Malzeme
-  - Boyut
-- Ürün detay sayfaları:
-  - Yüksek çözünürlüklü görseller
-  - Teknik özellikler
-  - Montaj talimatları
-  - İlgili ürünler
+## Tasarım Stili
 
-### 3.3 İletişim Bölümü
-- Doğrulamalı iletişim formu
-- Google Haritalar entegrasyonu
-- Çalışma saatleri
-- İletişim bilgileri
-- WhatsApp entegrasyonu
-- Sosyal medya bağlantıları
+### Renk Paleti
+- **Ana Renk:** [Şirket Ana Rengi] (#FF6B2B - turuncu veya benzeri bir ton)
+- **İkincil Renkler:** Siyah (#000000) ve Beyaz (#FFFFFF)
+- **Nötr Tonlar:** Gri tonları (#F5F5F5, #E0E0E0, #9E9E9E)
 
-### 3.4 Hakkımızda
-- Şirket geçmişi
-- Misyon ve vizyon
-- Ekip bölümü
-- Kalite güvence bilgileri
-- Sertifikalar
+### Tipografi
+- **Başlıklar:** Sans-serif, kalın (önerilen: Helvetica Neue, Arial, Roboto)
+- **Gövde Metni:** Sans-serif, normal ağırlık
+- **Font Boyutları:**
+  - H1: 48-64px
+  - H2: 36-48px
+  - H3: 24-36px
+  - Gövde metni: 16px
+  - Küçük metin: 14px
 
-## 4. Teknik Gereksinimler
+### Görsel Dil
+- Siyah-beyaz veya hafif tonlu endüstriyel/lojistik fotoğrafları
+- Yuvarlatılmış köşeli kartlar ve butonlar (8px radius)
+- Minimal ikonlar ve grafikler
+- Bol miktarda boş alan (white space) kullanımı
+- Temiz grid sistemi ve hizalama
 
-### 4.1 Performans
-- Core Web Vitals optimizasyonu:
-  - LCP < 2.5s
-  - FID < 100ms
-  - CLS < 0.1
-- Görsel optimizasyonu:
-  - WebP formatı
-  - Lazy loading
-  - Duyarlı boyutlar
-- Kod bölümleme
-- Rota ön yükleme
+## Sayfa Yapısı
 
-### 4.2 Duyarlı Tasarım
+### Header
+- Sol köşede logo
+- Orta kısımda yatay navigasyon menüsü (Home, Company, Services, Pricing, News)
+- Sağ köşede belirgin "Contact" CTA butonu
+- Sabit (sticky) header, sayfa aşağı kaydırıldığında görünür kalmalı
+
+### Hero Bölümü
+- İki sütunlu düzen:
+  - Sol tarafta: Büyük, dikkat çekici başlık, kısa açıklayıcı metin ve iki CTA butonu
+  - Sağ tarafta: Büyük, etkileyici bir lojistik/kargo görseli
+- Minimal animasyon efektleri (isteğe bağlı)
+
+### İçerik Bölümleri
+1. **Hizmetler Vitrini**
+   - Görsel ağırlıklı kart tasarımı
+   - Her kart için ikon veya görsel, başlık ve kısa açıklama
+   - Slider veya grid düzeni
+
+2. **Rakamlarla Biz**
+   - Etkileyici istatistikler (örn. "15k+ Mutlu Müşteri")
+   - İkon veya görsellerle desteklenmiş
+   - Kısa açıklayıcı metinler
+
+3. **Neden Biz**
+   - Değer önerilerimizi vurgulayan bölüm
+   - İkon veya görsellerle desteklenmiş
+   - Kısa ve öz metinler
+
+4. **Müşteri Referansları**
+   - Müşteri logoları veya testimonial kartları
+   - Minimal tasarım, odak noktası içerik olmalı
+
+### Footer
+- Şirket bilgileri ve iletişim detayları
+- Hızlı linkler (navigasyon tekrarı)
+- Sosyal medya ikonları
+- Newsletter abonelik formu (isteğe bağlı)
+- Telif hakkı bilgisi
+
+## Etkileşim ve Animasyon
+- Subtle hover efektleri (butonlar, kartlar, linkler)
+- Sayfa geçişlerinde yumuşak animasyonlar
+- Scroll-triggered içerik görünürlüğü (isteğe bağlı)
+- Minimal ve amaca yönelik animasyonlar (aşırıya kaçmadan)
+
+## Responsive Tasarım Gereksinimleri
+- Tüm ekran boyutlarına uyumlu tasarım (mobil, tablet, masaüstü)
 - Mobil öncelikli yaklaşım
-- Kırılma noktaları:
-  - Mobil: < 640px
-  - Tablet: 640px - 1024px
-  - Masaüstü: > 1024px
-- Akışkan tipografi
-- Esnek ızgara sistemi
-- Dokunmatik dostu etkileşimler
+- Dokunmatik cihazlar için optimize edilmiş etkileşim alanları
+- Farklı cihazlarda tutarlı kullanıcı deneyimi
 
-### 4.3 Animasyonlar ve Geçişler
-- Framer Motion ile sayfa geçişleri
-- Etkileşimli öğelerde hover efektleri
-- Kaydırmaya dayalı animasyonlar
-- Yükleme durumları
-- Mikro etkileşimler
+## CTA Stratejisi
+- Birincil CTA: "Get Started" - Ana renkte, belirgin
+- İkincil CTA: "About Us" veya "Learn More" - Beyaz arka plan, ana renk çerçeve
+- Stratejik konumlandırma: Hero bölümü, bölüm sonları ve sayfanın sağ üst köşesi
 
-### 4.4 Erişilebilirlik
-- WCAG 2.1 AA uyumluluğu
-- Klavye navigasyonu
-- Ekran okuyucu uyumluluğu
-- Renk kontrast oranı > 4.5:1
-- ARIA etiketleri
-- Anlamsal HTML
+## Teknik Gereksinimler
+- Modern HTML5, CSS3 ve JavaScript
+- Hızlı yükleme süresi için optimize edilmiş görseller
+- SEO dostu yapı
+- Tüm modern tarayıcılarla uyumluluk
 
-## 5. İçerik Yapısı
-
-### 5.1 Ana Navigasyon
-- Ana Sayfa
-- Ürünler
-  - Pencere Sineklikleri
-  - Kapı Sineklikleri
-- Hakkımızda
-- İletişim
-- Blog (opsiyonel)
-
-### 5.2 Alt Bilgi
-- Hızlı bağlantılar
-- İletişim bilgileri
-- Sosyal medya
-- Bülten kaydı
-- Gizlilik politikası
-- Kullanım koşulları
-
-## 6. SEO Gereksinimleri
-- Meta etiketleri optimizasyonu
-- Yapılandırılmış veri
-- XML site haritası
-- Robots.txt
-- Kanonik URL'ler
-- Open Graph etiketleri
-- Twitter kartları
-
-## 7. Güvenlik
-- HTTPS uygulaması
-- Form doğrulama
-- Girdi temizleme
-- Hız sınırlama
-- Güvenlik başlıkları
-- Düzenli güvenlik denetimleri
-
-## 8. Analitik ve İzleme
-- Google Analytics 4
-- Hata takibi
-- Performans izleme
-- Kullanıcı davranış analizi
-- Dönüşüm takibi
-
-## 9. Bakım
-- Düzenli içerik güncellemeleri
-- Güvenlik yamaları
-- Performans optimizasyonu
-- Yedekleme prosedürleri
-- Dokümantasyon güncellemeleri
-
-## 10. Zaman Çizelgesi ve Kilometre Taşları
-1. Tasarım ve Planlama (2 hafta)
-2. Geliştirme (4 hafta)
-3. İçerik Oluşturma (2 hafta)
-4. Test ve Kalite Kontrol (2 hafta)
-5. Lansman ve Optimizasyon (1 hafta)
-
-## 11. Başarı Metrikleri
-- Sayfa yükleme süresi < 3s
-- Mobil kullanılabilirlik puanı > 90
-- Dönüşüm oranı > %2
-- Hemen çıkma oranı < %40
-- Sitede geçirilen süre > 2 dakika
-
-## 12. Gelecek Geliştirmeler
-- E-ticaret entegrasyonu
-- Müşteri portalı
-- Ürün yapılandırıcı
-- Randevu planlama
-- Canlı destek
-- Çoklu dil desteği 
+## Teslim Edilecekler
+- Figma veya Adobe XD tasarım dosyaları
+- Responsive breakpoint'ler için mockup'lar (mobil, tablet, masaüstü)
+- Stil rehberi (renkler, fontlar, butonlar, kartlar vb.)
+- Prototip veya etkileşimli demo 
