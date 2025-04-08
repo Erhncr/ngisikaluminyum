@@ -12,7 +12,7 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-gray-100 py-8 dark:bg-gray-800">
+    <footer className="bg-black text-gray-300 py-8">
       <div className="container px-4 md:px-6">
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
           {/* Logo & Description - Use Image component */}
@@ -25,22 +25,22 @@ export function Footer() {
                 height={32}
                 className="h-8 w-auto"
               />
-              <span className="font-semibold text-lg">NG Işık Alüminyum</span>
+              <span className="font-semibold text-lg text-white">NG Işık Alüminyum</span>
             </Link>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-400">
               Kaliteli ve estetik sineklik çözümleri.
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-2">
-            <h4 className="font-semibold text-gray-900 dark:text-gray-50">Hızlı Bağlantılar</h4>
+            <h4 className="font-semibold text-white">Hızlı Bağlantılar</h4>
             <ul className="space-y-1">
               {footerLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-600 hover:underline dark:text-gray-400 dark:hover:text-gray-300"
+                    className="text-sm text-gray-400 hover:text-gray-200 hover:underline"
                   >
                     {link.label}
                   </Link>
@@ -52,27 +52,26 @@ export function Footer() {
 
           {/* Contact Information */}
           <div className="space-y-2">
-            <h4 className="font-semibold text-gray-900 dark:text-gray-50">İletişim</h4>
-            <address className="not-italic text-sm text-gray-600 dark:text-gray-400">
-              123 Örnek Cadde, Sanayi Bölgesi<br />
-              Şehir, Ülke 12345<br />
-              Telefon: <a href="tel:+905551234567" className="hover:underline">+90 555 123 45 67</a><br />
-              Email: <a href="mailto:info@ngisikaluminyum.com" className="hover:underline">info@ngisikaluminyum.com</a>
+            <h4 className="font-semibold text-white">İletişim</h4>
+            <address className="not-italic text-sm text-gray-400">
+              Veysel Karani, Küçükbalıklı Cd. no:113, 16270 Osmangazi̇/Bursa<br />
+              Telefon: <a href="tel:+905367277217" className="hover:underline hover:text-gray-200">0536 727 72 17</a><br />
+              Email: <a href="mailto:info@ngisikaluminyum.com" className="hover:underline hover:text-gray-200">info@ngisikaluminyum.com</a>
             </address>
           </div>
 
           {/* Social Media */}
           <div className="space-y-2">
-            <h4 className="font-semibold text-gray-900 dark:text-gray-50">Bizi Takip Edin</h4>
+            <h4 className="font-semibold text-white">Bizi Takip Edin</h4>
             <div className="flex space-x-3">
               <Link href="#" aria-label="Facebook">
-                <FacebookIcon className="h-5 w-5 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50" />
+                <FacebookIcon className="h-5 w-5 text-gray-400 hover:text-gray-200" />
               </Link>
               <Link href="#" aria-label="Twitter">
-                <TwitterIcon className="h-5 w-5 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50" />
+                <TwitterIcon className="h-5 w-5 text-gray-400 hover:text-gray-200" />
               </Link>
               <Link href="#" aria-label="Instagram">
-                <InstagramIcon className="h-5 w-5 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50" />
+                <InstagramIcon className="h-5 w-5 text-gray-400 hover:text-gray-200" />
               </Link>
               {/* Add more social links as needed */}
             </div>
@@ -80,7 +79,7 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-8 border-t border-gray-200 pt-4 text-center text-sm text-gray-600 dark:border-gray-700 dark:text-gray-400">
+        <div className="mt-8 border-t border-gray-700 pt-4 text-center text-sm text-gray-500">
           © {new Date().getFullYear()} NG Işık Alüminyum. Tüm hakları saklıdır.
         </div>
       </div>
