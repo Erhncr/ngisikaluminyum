@@ -1,0 +1,9 @@
+# Allow all user agents to crawl the site
+User-agent: *
+Allow: /
+
+# Disallow specific paths if needed (e.g., admin areas)
+# Disallow: /admin/
+
+# Optionally, specify the sitemap location
+# Sitemap: https://www.ngisikaluminyum.com/sitemap.xml 
