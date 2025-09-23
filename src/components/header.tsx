@@ -8,6 +8,7 @@ import { MenuIcon } from 'lucide-react' // Removed MountainIcon
 // Updated nav links for the logistics site spec
 const navLinks = [
   { href: '/', label: 'Home' },
+  { href: '/cocuk-oyunlari', label: 'Şenlik' },
   { href: '/company', label: 'Company' }, // Placeholder href
   { href: '/services', label: 'Services' }, // Placeholder href
   { href: '/pricing', label: 'Pricing' }, // Placeholder href

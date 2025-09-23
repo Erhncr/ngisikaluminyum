@@ -31,10 +31,10 @@ export default function AboutPage() {
                 <h2 className="text-3xl font-semibold tracking-tight">Hikayemiz</h2>
             </div>
             <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-              NG Işık Alüminyum, [Kuruluş Yılı] yılında Bursa'da sineklik çözümleri sunma amacıyla kurulmuştur. Başlangıçta küçük bir atölye olarak başlayan yolculuğumuz, kaliteye verdiğimiz önem ve müşteri memnuniyeti odaklı yaklaşımımız sayesinde hızla büyüdü.
+              NG Işık Alüminyum, [Kuruluş Yılı] yılında Bursa’da sineklik çözümleri sunma amacıyla kurulmuştur. Başlangıçta küçük bir atölye olarak başlayan yolculuğumuz, kaliteye verdiğimiz önem ve müşteri memnuniyeti odaklı yaklaşımımız sayesinde hızla büyüdü.
             </p>
             <p className="text-gray-600 dark:text-gray-400">
-              Bugün, modern üretim tesislerimiz ve deneyimli ekibimizle, Türkiye'nin dört bir yanına estetik, dayanıklı ve fonksiyonel sineklik sistemleri sunmaktan gurur duyuyoruz. Sürekli gelişimi hedefleyerek sektördeki yenilikleri takip ediyor ve ürün yelpazemizi genişletiyoruz.
+              Bugün, modern üretim tesislerimiz ve deneyimli ekibimizle, Türkiye’nin dört bir yanına estetik, dayanıklı ve fonksiyonel sineklik sistemleri sunmaktan gurur duyuyoruz. Sürekli gelişimi hedefleyerek sektördeki yenilikleri takip ediyor ve ürün yelpazemizi genişletiyoruz.
             </p>
           </div>
           <div className="order-1 md:order-2">
@@ -75,7 +75,7 @@ export default function AboutPage() {
                     <h3 className="text-2xl font-semibold">Vizyonumuz</h3>
                 </div>
                  <p className="text-gray-600 dark:text-gray-400">
-                   Sineklik sektöründe yenilikçi yaklaşımımız, sürdürülebilir üretim anlayışımız ve müşteri odaklı hizmetimizle Türkiye'nin lider markası olmak.
+                   Sineklik sektöründe yenilikçi yaklaşımımız, sürdürülebilir üretim anlayışımız ve müşteri odaklı hizmetimizle Türkiye’nin lider markası olmak.
                  </p>
              </div>
            </div>
