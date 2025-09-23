@@ -77,7 +77,7 @@ export default function ContactPage() {
               {/* WhatsApp Button */}
               <Button asChild size="lg" className="w-full mt-4 bg-green-600 hover:bg-green-700">
                 <Link href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                  <MessageCircleIcon className="mr-2 h-5 w-5" /> WhatsApp'tan Yazın
+                  <MessageCircleIcon className="mr-2 h-5 w-5" /> WhatsApp’tan Yazın
                 </Link>
               </Button>
             </CardContent>
