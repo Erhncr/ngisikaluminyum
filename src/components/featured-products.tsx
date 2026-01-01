@@ -9,44 +9,42 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import Link from 'next/link'
-import { ArrowRightIcon } from 'lucide-react'
+import Link from "next/link"
+import { ArrowRightIcon } from "lucide-react"
 
-// Placeholder service data for the logistics theme
 const services = [
   {
     id: 1,
-    name: "Air Freight",
-    description: "Fast and reliable air cargo solutions for time-sensitive shipments.",
+    name: "Mantık & problem çözme",
+    description: "Çocuk psikologları tarafından hazırlanmış, algoritma ve akıl yürütme odaklı soru setleri.",
     icon: ArrowRightIcon,
     image: "/placeholder.svg",
-    slug: "air-freight",
+    slug: "mantik-problem",
   },
   {
     id: 2,
-    name: "Ocean Freight",
-    description: "Cost-effective and comprehensive sea freight services worldwide.",
+    name: "Görsel algı & dikkat",
+    description: "Çoklu zekâ teorisine uygun görsel hafıza çalışmaları ve odaklanma oyunları.",
     icon: ArrowRightIcon,
     image: "/placeholder.svg",
-    slug: "ocean-freight",
+    slug: "gorsel-algi",
   },
   {
     id: 3,
-    name: "Road Freight",
-    description: "Flexible and efficient land transportation across regions.",
+    name: "Deneme takibi",
+    description: "Seviye bazlı Bilsem denemeleri, anında koçluk notları ve haftalık gelişim grafikleri.",
     icon: ArrowRightIcon,
     image: "/placeholder.svg",
-    slug: "road-freight",
+    slug: "deneme-takibi",
   },
 ]
 
-// Renaming function conceptually to ServicesShowcase
 export function FeaturedProducts() {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-light">
+    <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-light" id="ozellikler">
       <div className="container px-4 md:px-6">
         <h2 className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl mb-8 md:mb-12 text-foreground">
-          Our Services
+          Hazırlık modülleri
         </h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
@@ -77,7 +75,7 @@ export function FeaturedProducts() {
               </CardContent>
               <CardFooter className="p-4 pt-0 mt-auto">
                 <Button asChild variant="outline" className="w-full">
-                  <Link href={`/services/${service.slug}`}>Learn More</Link>
+                  <Link href={`/services/${service.slug}`}>Detayları gör</Link>
                 </Button>
               </CardFooter>
             </Card>

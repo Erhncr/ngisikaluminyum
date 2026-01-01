@@ -10,30 +10,30 @@ import { GoogleAnalytics } from "@/components/google-analytics"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "NG Işık Alüminyum",
-  description: "Kaliteli Cam ve Kapı Sineklikleri",
+  title: "Parlak Zeka | Bilsem Hazırlık Uygulaması",
+  description: "Bilsem sınavına hazırlık için yapay zeka destekli, oyunlaştırılmış mobil uygulama.",
 }
 
 // Define Organization Schema data
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "NG Işık Alüminyum",
-  "url": "https://ngisikaluminyum.com", // Assuming this is the correct domain
-  "logo": "https://ngisikaluminyum.com/ngisiklogo.png", // Updated logo URL
+  "name": "Parlak Zeka",
+  "url": "https://parlakzeka.app",
+  "logo": "https://parlakzeka.app/logo.png",
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+90-536-727-72-17",
-    "contactType": "Customer Service", // Or "Sales", "Technical Support" etc.
-    "areaServed": "TR", // ISO 3166-1 alpha-2 country code
+    "telephone": "+90-530-000-00-00",
+    "contactType": "Customer Service",
+    "areaServed": "TR",
     "availableLanguage": ["Turkish"]
   },
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Küçükbalıklı Cd. No:113, Veysel Karani",
-    "addressLocality": "Osmangazi",
-    "addressRegion": "Bursa",
-    "postalCode": "16270",
+    "streetAddress": "Bilkent Cyberpark",
+    "addressLocality": "Çankaya",
+    "addressRegion": "Ankara",
+    "postalCode": "06800",
     "addressCountry": "TR"
   }
   // Add sameAs for social media links if available

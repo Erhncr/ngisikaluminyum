@@ -4,6 +4,7 @@ import { FeaturedProducts } from "@/components/featured-products"
 import { CompanyIntroduction } from "@/components/company-introduction"
 import { StatsSection } from "@/components/stats-section"
 import { CustomerReferences } from "@/components/customer-references"
+import { DownloadCTA } from "@/components/download-cta"
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <FeaturedProducts />
       <CompanyIntroduction />
       <CustomerReferences />
+      <DownloadCTA />
     </main>
   )
-} 
+}

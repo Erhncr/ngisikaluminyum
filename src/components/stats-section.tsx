@@ -1,5 +1,5 @@
 import React from "react"
-import { TruckIcon, GlobeIcon, UsersIcon, SmileIcon } from "lucide-react" // Example icons
+import { BrainIcon, ClockIcon, SparklesIcon, StarIcon } from "lucide-react"
 
 interface StatItem {
   id: number
@@ -8,37 +8,36 @@ interface StatItem {
   icon?: React.ElementType // Optional icon component
 }
 
-// Placeholder data for stats
 const stats: StatItem[] = [
   {
     id: 1,
-    value: "1.2M+",
-    label: "Kilometers Covered Annually",
-    icon: TruckIcon,
+    value: "40k+",
+    label: "Çözülebilir soru ve etkinlik",
+    icon: BrainIcon,
   },
   {
     id: 2,
-    value: "98%",
-    label: "On-Time Delivery Rate",
-    icon: GlobeIcon,
+    value: "12",
+    label: "Canlı deneme seti ve seviye belirleme",
+    icon: SparklesIcon,
   },
   {
     id: 3,
-    value: "15k+",
-    label: "Satisfied Customers",
-    icon: SmileIcon, // Changed from UsersIcon for variety
+    value: "92%",
+    label: "Ebeveyn memnuniyeti",
+    icon: StarIcon,
   },
   {
     id: 4,
-    value: "250+",
-    label: "Global Partners",
-    icon: UsersIcon, // Re-added UsersIcon
+    value: "7/24",
+    label: "Yapay zeka koçundan anlık geri bildirim",
+    icon: ClockIcon,
   },
 ]
 
 export function StatsSection() {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-background">
+    <section className="w-full py-12 md:py-24 lg:py-32 bg-background" id="istatistikler">
       <div className="container px-4 md:px-6">
         {/* Optional Section Title */}
         {/* <h2 className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl mb-8 md:mb-12 text-foreground">
